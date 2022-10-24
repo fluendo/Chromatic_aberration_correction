@@ -1,3 +1,4 @@
+#include "ColorAberrationCorrection.h"
 
 void rmCA(std::vector<cv::Mat> &bgrVec, int threshold)
 {
