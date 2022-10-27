@@ -13,14 +13,15 @@ int main(int argc, char *argv[]) {
 
 	CACorrection(src, dst);
 
-	cv::imshow("original", src);
-	cv::imshow("result", dst);
-	
+    if (getenv("PEL_CAC_DISPLAY")) {
+	    cv::imshow("original", src);
+	    cv::imshow("result", dst);
+	    
 
-	cv::imwrite("result.bmp", dst);
+	    cv::imwrite("result.bmp", dst);
 
-	cv::waitKey(0);
-	cv::destroyAllWindows();
-
+	    cv::waitKey(0);
+	    cv::destroyAllWindows();
+    }
 	return 0;
 }
