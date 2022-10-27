@@ -1,5 +1,8 @@
 #include "ColorAberrationCorrection.h"
 
+using namespace std::chrono;
+
+
 void rmCA(std::vector<cv::Mat> &bgrVec, int threshold)
 {
 	int height = bgrVec[0].rows, width = bgrVec[0].cols;
@@ -74,6 +77,7 @@ void CACorrection(cv::Mat &Src, cv::Mat &Dst)
 	//setting threshold to find the edge and correction range(in g channel)
 	int threshold = 30;
 
+    auto start = high_resolution_clock::now();
 	rmCA(bgrVec, threshold);
 
 	//transpose the R,G B channel image to correct chromatic aberration in vertical direction 
@@ -82,6 +86,10 @@ void CACorrection(cv::Mat &Src, cv::Mat &Dst)
 	bgrVec[2] = bgrVec[2].t();
 
 	rmCA(bgrVec, threshold);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "Time taken by function: " << duration.count() << " milliseconds" << std::endl;
+
 
 	cv::merge(bgrVec, Dst);
 	//rotate the image back to original position
